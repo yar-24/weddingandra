@@ -1,0 +1,75 @@
+.app__harga{
+    background-color: var(--color-dark-grey);
+    flex-direction: column;
+}
+
+.app__harga-tittle{ 
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.app__wrapper-harga{
+    display: flex;
+    align-items: center;
+    min-height: 100vh
+}
+
+.app__harga-row{
+    margin: 100px auto;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: auto;
+    gap: 2rem;
+    padding-top: 30px;
+}
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+.card__body{
+    text-align: center;
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+}
+
+.card__body ul{
+    list-style-type: none; 
+    font-size : 16px;
+    
+}
+
+.card .card__body {
+    padding: 1.5rem;
+}
+
+.harga__rate{
+    position: relative;
+    z-index: 1;
+    border-bottom: 3px solid #adb5bd
+}
+
+.col-xs-12{
+    grid-column: span 12;
+}
+
+.col-xs-6{
+    grid-column: span 6;
+}
+
+.col-md-4{
+    grid-column: span 4;
+}
+
+.col-lg-3{
+    grid-column: span 3;
+}
+

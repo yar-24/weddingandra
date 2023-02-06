@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Shalimar&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:ital,wght@1,300&display=swap");
+
+:root{
+    --font-base: 'Cormorant Upright', serif;
+    --font-alt: 'Open Sans', sans-serif;
+
+    --color-dark-grey: #91D8E4;
+    --color-light-grey: #EAFDFC;
+    --color-dark-brown: #c7c1b5;
+    --color-light-brown: #e3dfd4;
+    --color-dark-green: #adc5b7;
+    --color-light-green: #c0d4c9;
+    --color-gold: #DCCA87;
+    --color-white: #FFFFFF;
+    --color-grey: #AAAAAA;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+  }
+  
+a {
+    color: unset;
+    text-decoration: none;
+  }
