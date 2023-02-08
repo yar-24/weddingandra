@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-
-import { Header, Fitur, Harga, Accordion, Pembayaran } from "./container";
-
-import { Navbar } from "./components";
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
@@ -18,16 +14,39 @@ import Couples from "./pages/TemaUndangan/Couples";
 import Event from "./pages/TemaUndangan/Event";
 import Wishes from "./pages/TemaUndangan/Wishes";
 import Gift from "./pages/TemaUndangan/Gift";
-import InputData from "./components/InputData";
+import InputData from "./pages/Dashboard/InputData";
+import PilihHarga from "./pages/Dashboard/PilihHarga";
+import PilihTema from "./pages/Dashboard/PilihTema";
+import { getDatabase, ref, child, get } from "firebase/database";
 
 const App = () => {
   const [user, setUser] = useState({});
+  const [dataUndangan, setDataUndangan] = useState();
+  const [loading, setLoading] = React.useState(false);
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
-  console.log(user)
+  React.useEffect(() => {
+    if (user) {
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `dataUndangan/${user.uid}`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setDataUndangan(snapshot.val());
+            setLoading(true);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [user]);
+
+  console.log(dataUndangan)
 
   return (
     <>
@@ -37,17 +56,20 @@ const App = () => {
         <Route element={<Login />} path="/login" />
         <Route element={<Register />} path="/register" />
         <Route
-          element={user ? <Dashboard /> : <LandingPage />}
+          element={user ? <Dashboard user={user} /> : <LandingPage />}
           path="/dashboard"
-        />
-        <Route path="/input-data" element={<InputData /> } />
-        <Route path="/undangan" element={<WelcomeCard />} />
+        >
+          <Route index element={<PilihTema />} />
+          <Route path="input-data" element={<InputData user={user} />} />
+          <Route path="pilih-harga" element={<PilihHarga user={user} />} />
+        </Route>
+        <Route path="/undangan" element={<WelcomeCard dataUndangan={dataUndangan} />} />
         <Route path="/:nama" element={<WelcomeCard />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/couples" element={<Couples />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/wishes" element={<Wishes />} />
-        <Route path="/gift" element={<Gift />} />
+        <Route path="/home" element={<Home dataUndangan={dataUndangan} />} />
+        <Route path="/couples" element={<Couples dataUndangan={dataUndangan} />} />
+        <Route path="/event" element={<Event dataUndangan={dataUndangan} />} />
+        <Route path="/wishes" element={<Wishes dataUndangan={dataUndangan} />} />
+        <Route path="/gift" element={<Gift dataUndangan={dataUndangan} />} />
         <Route path="*" element={<h1>NotFound</h1>} />
       </Routes>
     </>

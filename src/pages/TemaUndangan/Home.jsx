@@ -2,8 +2,11 @@ import React from "react";
 import Navbar from "../../components/componenTema/Navbar";
 import useCountDown from "react-countdown-hook";
 
-const Home = () => {
-  const { seconds, minutes, hours, days } = useCountDown(800000, handleTimerFinish);
+const Home = ({ dataUndangan }) => {
+  const { seconds, minutes, hours, days } = useCountDown(
+    800000,
+    500000
+  );
 
   function handleTimerFinish() {
     alert("Waktunya Nikah!");
@@ -15,11 +18,18 @@ const Home = () => {
         <h1 className="text-2xl text-primary font-Bree">The Wedding Of</h1>
         <img src="mempelai.png" alt="Mempelai" width={180} className="ml-8" />
         <div className="flex flex-col gap-1">
-          <h1 className="font-shalimar font-extrabold text-5xl text-primary text-center">
-            Yandra Muslim & Anime
-          </h1>
+          {dataUndangan ? (
+            <h1 className="font-shalimar font-extrabold text-5xl text-primary text-center">
+              {dataUndangan.namaP} & {dataUndangan.namaW}
+            </h1>
+          ) : (
+            <h1 className="font-shalimar font-extrabold text-5xl text-primary text-center">
+              Amar & Tanto
+            </h1>
+          )}
+
           <h2 className="font-Poppins text-2xl text-primary text-center">
-            32 Desember 2022
+            {/* {dataUndangan.tglAk} */}
           </h2>
         </div>
         <div className="flex flex-row text-white font-Bree gap-2">

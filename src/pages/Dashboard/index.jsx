@@ -5,7 +5,6 @@ import {
   CssBaseline,
   Divider,
   Drawer,
-  Grid,
   IconButton,
   List,
   ListItem,
@@ -21,10 +20,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MuiAppBar from "@mui/material/AppBar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase-config";
-import CardTema from "../../components/CardTema";
+import { getDatabase, ref, child, get } from "firebase/database";
+import PaidIcon from "@mui/icons-material/Paid";
 
 const drawerWidth = 240;
 
@@ -74,9 +74,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function Dashboard({ user }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [transaksi, setTransaksi] = React.useState();
+
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -91,6 +94,26 @@ export default function PersistentDrawerLeft() {
     await signOut(auth).then((response) => {
       navigate("/");
     });
+  };
+
+  React.useEffect(() => {
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `transaksi/${user.uid}`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setTransaksi(snapshot.val());
+            setLoading(true);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  }, [user]);
+
+  const onTransaksi = () => {
+    window.location.href = transaksi.transaksi.redirect_url;
   };
 
   return (
@@ -144,6 +167,21 @@ export default function PersistentDrawerLeft() {
               <ListItemText>Home</ListItemText>
             </ListItemButton>
           </ListItem>
+          {loading ? (
+            transaksi ? (
+              <ListItem disablePadding onClick={onTransaksi}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PaidIcon />
+                  </ListItemIcon>
+                  <ListItemText>Pembayaran</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ) : null
+          ) : (
+            null
+          )}
+
           <ListItem disablePadding onClick={onLogout}>
             <ListItemButton>
               <ListItemIcon>
@@ -157,21 +195,7 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {Array.from(Array(3)).map((_, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
-              {index === 0 && 2 ? (
-                <CardTema sx={{ maxWidth: 345 }} tema="tema 1" />
-              ) : (
-                <CardTema sx={{ maxWidth: 345, opacity: 0.5 }} tema="coming soon" disabled />
-              )}
-            </Grid>
-          ))}
-        </Grid>
+        <Outlet />
       </Main>
     </Box>
   );

@@ -6,7 +6,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { GiEternalLove } from "react-icons/gi";
 import Iframe from "react-iframe";
 
-const Event = () => {
+const Event = ({ dataUndangan }) => {
   return (
     <div className="w-full min-h-screen bg-secondary bg-cover bg-center ">
       <Navbar />
@@ -27,22 +27,33 @@ const Event = () => {
                text-center"
               >
                 <h2>Bertempat Di</h2>
-                <p>Isekai, Kehidupan setelah kematian</p>
+                {dataUndangan ? (
+                  <p>{dataUndangan.almtAk}</p>
+                ) : (
+                  <p>isekai dunia anime</p>
+                )}
               </div>
               <div className="flex flex-col items-center justify-center text-center text-black font-Open">
                 <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
                   <RiCalendarEventLine color="white" size={40} />
                 </div>
-                <p>
-                  Minggu <br />
-                  32 Desember 2022
-                </p>
+                {dataUndangan ? (
+                  <p>{dataUndangan.tglAk}</p>
+                ) : (
+                  <p>01 Januari 3001</p>
+                )}
               </div>
               <div className="flex flex-col items-center justify-center text-center text-black font-Open">
                 <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
                   <AiOutlineClockCircle color="white" size={40} />
                 </div>
-                <p>24.00 WIB</p>
+                {dataUndangan ? (
+                  <p>
+                    {dataUndangan.waktuAk} {dataUndangan.zonaWakAk}
+                  </p>
+                ) : (
+                  <p>21:22 WIB</p>
+                )}
               </div>
             </div>
           </div>
@@ -57,21 +68,33 @@ const Event = () => {
                text-center"
               >
                 <h2>Bertempat Di</h2>
-                <p>Isekai, Kehidupan setelah kematian</p>
+                {dataUndangan ? (
+                  <p>{dataUndangan.almtRe}</p>
+                ) : (
+                  <p>Kebun raya bogor</p>
+                )}
               </div>
               <div className="flex flex-col items-center justify-center text-center text-black font-Open">
                 <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
                   <RiCalendarEventLine color="white" size={40} />
                 </div>
-                <p>
-                  12.00 WIB <br /> s/d Selesai
-                </p>
+                {dataUndangan ? (
+                  <p>{dataUndangan.tglRe}</p>
+                ) : (
+                  <p>01 Jnuari 3002</p>
+                )}
               </div>
               <div className="flex flex-col items-center justify-center text-center text-black font-Open">
                 <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
                   <AiOutlineClockCircle color="white" size={40} />
                 </div>
-                <p>24.00 WIB</p>
+                {dataUndangan ? (
+                  <p>
+                    {dataUndangan.waktuRe} {dataUndangan.zonaWakRe}
+                  </p>
+                ) : (
+                  <p>24:00 WIB</p>
+                )}
               </div>
             </div>
           </div>
