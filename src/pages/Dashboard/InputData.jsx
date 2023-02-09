@@ -114,7 +114,7 @@ export default function InputData({ user }) {
         linkLokasi: linkLokasi,
         gift: gift,
       }).then((res) => {
-          navigate("/dashboard");
+          navigate("/dashboard/pilih-harga");
         });
     } else {
       alert("harus diisi semua");

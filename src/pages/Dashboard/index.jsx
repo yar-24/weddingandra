@@ -194,13 +194,7 @@ export default function Dashboard({ user }) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {transaksi ? (
-          <Button onClick={onTransaksi} variant="contained">
-            Lanjutkan Pembayaran
-          </Button>
-        ) : (
-          <Outlet />
-        )}
+        <Outlet />
       </Main>
     </Box>
   );
