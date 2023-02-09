@@ -3,7 +3,7 @@ import { MdOutlineInsertInvitation } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 
 const WelcomeCard = ({ dataUndangan }) => {
-  const { nama } = useParams();
+  const { name } = useParams();
 
   return (
     <div className="w-screen h-screen bg-main bg-no-repeat bg-cover bg-center mix-blend-darken">
@@ -23,7 +23,7 @@ const WelcomeCard = ({ dataUndangan }) => {
           )}
 
           <p className="text-white font-Poppins">Kepada Bapak/Ibu/Saudara/I</p>
-          <h1 className="text-white text-lg font-Bree">{nama}</h1>
+          <h1 className="text-white text-lg font-Bree">{name}</h1>
           <p className="text-white font-Poppins text-center ">
             Kami mengundang anda untuk menghadiri ke pernikahan kami
           </p>

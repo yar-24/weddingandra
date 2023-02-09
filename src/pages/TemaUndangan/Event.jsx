@@ -103,7 +103,7 @@ const Event = ({ dataUndangan }) => {
           <div className="w-full h-full border-[8px] border-third bg-main bg-cover bg-top flex flex-col items-center justify-center p-3 rounded-3xl gap-2">
             <h1 className="font-Bree text-3xl text-third">LOKASI</h1>
             <Iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.321961733729!2d106.69314651390361!3d-6.221207895496523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f967d81f7375%3A0x472f6fedeb1530f0!2sIsekai%20World%20Portal!5e0!3m2!1sen!2sid!4v1667618391870!5m2!1sen!2sid"
+              src={dataUndangan? dataUndangan.linkLokasi : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.321961733729!2d106.69314651390361!3d-6.221207895496523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f967d81f7375%3A0x472f6fedeb1530f0!2sIsekai%20World%20Portal!5e0!3m2!1sen!2sid!4v1667618391870!5m2!1sen!2sid"}
               className="rounded-xl w-full h-96"
             />
           </div>

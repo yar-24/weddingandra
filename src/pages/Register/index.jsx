@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase-config";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const BgImage = styled("div")`
   display: flex;
@@ -45,6 +46,8 @@ const BoxForm = styled(Box)`
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const navigate = useNavigate()
 
   const onRegister = async () => {
     // const user = userCredential.user;
@@ -62,6 +65,7 @@ const Register = () => {
           });
           setPassword("")
           setEmail("")
+          navigate("/login")
       })
       .catch((error) => {
         toast.error(error.message, {

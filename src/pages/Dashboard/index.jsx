@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
+  Button,
   CssBaseline,
   Divider,
   Drawer,
@@ -97,19 +98,19 @@ export default function Dashboard({ user }) {
   };
 
   React.useEffect(() => {
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `transaksi/${user.uid}`))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            setTransaksi(snapshot.val());
-            setLoading(true);
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `transaksi/${user.uid}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setTransaksi(snapshot.val());
+          setLoading(true);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [user]);
 
   const onTransaksi = () => {
@@ -178,9 +179,7 @@ export default function Dashboard({ user }) {
                 </ListItemButton>
               </ListItem>
             ) : null
-          ) : (
-            null
-          )}
+          ) : null}
 
           <ListItem disablePadding onClick={onLogout}>
             <ListItemButton>
@@ -195,7 +194,13 @@ export default function Dashboard({ user }) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Outlet />
+        {transaksi ? (
+          <Button onClick={onTransaksi} variant="contained">
+            Lanjutkan Pembayaran
+          </Button>
+        ) : (
+          <Outlet />
+        )}
       </Main>
     </Box>
   );

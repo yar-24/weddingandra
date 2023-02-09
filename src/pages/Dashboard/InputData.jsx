@@ -49,7 +49,7 @@ export default function InputData({ user }) {
   const [waktuAk, setWaktuAk] = React.useState("");
   const [waktuSelesaiAk, setWaktuSelesaiAk] = React.useState("");
   const [zonaWakAk, setZonaWakAk] = React.useState("");
-
+  
   //ISI DATA RESEPSI
   const [almtRe, setAlmtRe] = React.useState("");
   const [namaLokRe, setNamaLokRe] = React.useState("");
@@ -57,7 +57,9 @@ export default function InputData({ user }) {
   const [waktuRe, setWaktuRe] = React.useState("");
   const [waktuSelesaiRe, setWaktuSelesaiRe] = React.useState("");
   const [zonaWakRe, setZonaWakRe] = React.useState("");
-
+  
+  const [linkLokasi, setLinkLokasi] = React.useState("")
+  const [gift, setGift] = React.useState("")
   const onSubmit = async () => {
     if (
       namaP &&
@@ -81,7 +83,9 @@ export default function InputData({ user }) {
       tglRe &&
       waktuRe &&
       waktuSelesaiRe &&
-      zonaWakRe
+      zonaWakRe &&
+      linkLokasi &&
+      gift
     ) {
       const db = getDatabase();
       set(ref(db, "dataUndangan/" + user.uid), {
@@ -107,8 +111,10 @@ export default function InputData({ user }) {
         waktuRe: waktuRe,
         waktuSelesaiRe: waktuSelesaiRe,
         zonaWakRe: zonaWakRe,
+        linkLokasi: linkLokasi,
+        gift: gift,
       }).then((res) => {
-          navigate("/dashboard/pilih-harga");
+          navigate("/dashboard");
         });
     } else {
       alert("harus diisi semua");
@@ -407,13 +413,29 @@ export default function InputData({ user }) {
               </MenuItem>
             ))}
           </TextField>
+          <FormControl variant="standard" sx={{ mt: 4 }}>
+            <InputLabel htmlFor="component-helper">Input Link Lokasi</InputLabel>
+            <Input
+              id="component-helper"
+              aria-describedby="component-helper-text"
+              value={linkLokasi}
+              onChange={(e) => setLinkLokasi(e.target.value)}
+            />
+          </FormControl>
+          <FormControl variant="standard" sx={{ mt: 4 }}>
+            <InputLabel htmlFor="component-helper">No. Rekening Bank</InputLabel>
+            <Input
+              id="component-helper"
+              aria-describedby="component-helper-text"
+              value={gift}
+              onChange={(e) => setGift(e.target.value)}
+            />
+          </FormControl>
         </Item>
       </Stack>
       <Button sx={{ m: 4 }} variant="contained" onClick={onSubmit}>
         Simpan
       </Button>
     </>
-    //   </Main>
-    // </Box>
   );
 }

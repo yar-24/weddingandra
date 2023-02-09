@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/componenTema/Navbar";
 import { useForm } from "react-hook-form";
-// import { firestore } from "../config/firebaseConfig";
+import { firestore } from "../../utils/firebase-config";
 import {
   collection,
   getDocs,
@@ -24,67 +24,67 @@ const Wishes = () => {
     }
     reset();
     const docId = Date.now().toString();
-    // const wishesRef = doc(firestore, "wishes", docId);
-    // setDoc(wishesRef, {
-    //   id: docId,
-    //   nama: nama,
-    //   ucapan: ucapan,
-    //   kehadiran: kehadiran,
-    //   createdAt: moment().format("LLLL"),
-    // })
-    //   .then((res) => {
-    //     alert("Data Berhasil Ditambahkan");
-    //     window.location.reload();
-    //   })
-    //   .catch((err) => {
-    //     alert("Data Gagal Ditambahkan");
-    //   });
+    const wishesRef = doc(firestore, "wishes", docId);
+    setDoc(wishesRef, {
+      id: docId,
+      nama: nama,
+      ucapan: ucapan,
+      kehadiran: kehadiran,
+      createdAt: moment().format("LLLL"),
+    })
+      .then((res) => {
+        alert("Data Berhasil Ditambahkan");
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert("Data Gagal Ditambahkan");
+      });
   };
 
   // get collection data
   const getWishesCollection = async () => {
     const collectionArr = [];
-    // const wishesRef = collection(firestore, "wishes");
-    // const collectData = await getDocs(wishesRef)
-    //   .then((result) => {
-    //     result.forEach((e) => {
-    //       collectionArr.push(e.data());
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
-    // return collectionArr;
+    const wishesRef = collection(firestore, "wishes");
+    const collectData = await getDocs(wishesRef)
+      .then((result) => {
+        result.forEach((e) => {
+          collectionArr.push(e.data());
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    return collectionArr;
   };
 
   // listener function agar realtime add data
   const listener = () => {
-    // let wishesRef = collection(firestore, "wishes");
-    // onSnapshot(wishesRef, (newRec) => {
-    //   getWishesCollection()
-    //     .then((res) => {
-    //       setDatas(res);
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
-    // });
+    let wishesRef = collection(firestore, "wishes");
+    onSnapshot(wishesRef, (newRec) => {
+      getWishesCollection()
+        .then((res) => {
+          setDatas(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
   };
 
   //clc
   useEffect(() => {
-    // getWishesCollection()
-    //   .then((res) => {
-    //     setDatas(res);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    getWishesCollection()
+      .then((res) => {
+        setDatas(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
-    // // component did update
-    // return () => {
-    //   listener();
-    // };
+    // component did update
+    return () => {
+      listener();
+    };
   }, []);
 
   return (

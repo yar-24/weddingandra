@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../../components/componenTema/Navbar";
 
-const Gift = () => {
+const Gift = ({dataUndangan}) => {
   const [copy, setCopy] = useState(true);
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ const Gift = () => {
             width={150}
             height={150}
           />
-          <h1 className="text-orange-600">No Rekening: 12345678910</h1>
+          <h1 className="text-orange-600">No Rekening: {dataUndangan? dataUndangan.gift: "123456789"}</h1>
           <button
             className={`bg-third ${
               !copy && "bg-green-600 hover:bg-green-800"

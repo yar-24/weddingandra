@@ -24,10 +24,10 @@ export default function MultiActionAreaCard({sx, tema, ...rest}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button component={Link} to="/undangan" size="small" color="primary" {...rest}>
+        <Button component={Link} to="/undangan/:name" size="small" color="primary" {...rest}>
           Lihat Tema
         </Button>
-        <Button component={Link} to="input-data" size="small" color="primary" variant="contained" {...rest}>
+        <Button component={Link} to="pilih-harga" size="small" color="primary" variant="contained" {...rest}>
           Pilih Tema
         </Button>
       </CardActions>
